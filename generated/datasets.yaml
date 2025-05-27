@@ -39,7 +39,7 @@ mp_20:
       path: mp_20/WyckoffTransformer/WyckoffTransformer_mp_20.json.gz
       storage_type: pyxtal_json
       generated_by: "Kazeev et al. https://doi.org/10.48550/arXiv.2503.02407"
-    DFT:
+    DFT-PBE-54:
       structures:
         path: mp_20/WyckoffTransformer/DFT/id_cif_Eform_Ehull_cifs.csv.gz
         storage_type: DFT_CSV_CIF
