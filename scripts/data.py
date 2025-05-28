@@ -16,7 +16,9 @@ from pymatgen.io.cif import CifParser
 from pymatgen.core import Structure, Element
 from pyxtal import pyxtal
 
-from .preprocess_wychoffs import get_augmentation_dict
+import sys
+sys.path.append(str(Path(__file__).parent.parent))
+from scripts.preprocess_wychoffs import get_augmentation_dict
 
 logger = logging.getLogger(__name__)
 
