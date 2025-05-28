@@ -114,6 +114,21 @@ mp_20:
       path: mp_20/DiffCSP/DiffCSP_mp_20.pt
       storage_type: DiffCSP_pt
       generated_by: "Rui Jiao et al. https://proceedings.neurips.cc/paper_files/paper/2023/hash/38b787fc530d0b31825827e2cc306656-Abstract-Conference.html"
+    1k-sample:
+      DFT:
+        structures:
+          path: mp_20/DiffCSP/1k-sample/DFT/DiffCSP-no-prerelax-1k.csv.gz
+          storage_type: old_atomated_csv
+      CHGNet_free:
+        DFT:
+          structures:
+            path: mp_20/DiffCSP/1k-sample/CHGNet_free/DFT/DiffCSP-CHGNet-1k.csv.gz
+            storage_type: old_atomated_csv
+      eq-V2_free:
+        DFT:
+          structures:
+            path: mp_20/DiffCSP/1k-sample/eq-V2_free/DFT/Mirage-14-v2.csv.gz
+            storage_type: old_atomated_csv
     DFT:
       structures:
         path: mp_20/DiffCSP/DFT/DiffCSP-105.csv.gz
@@ -177,10 +192,10 @@ mp_20:
       structures:
         path: mp_20/FlowMM/CHGNet_fix/flowmm_mp20_all_result_filtered_withcif.csv
         storage_type: EhullCSVCIF
-  FlowMM-relaxed:
-    structures:
-      path: mp_20/FlowMM-relaxed/FlowMM-relaxed
-      storage_type: FlowMM
+    Likely-DFT-GGA-relax-1:
+      structures:
+        path: mp_20/FlowMM-relaxed/FlowMM-relaxed
+        storage_type: FlowMM
   split:
     train:
       structures:
@@ -226,6 +241,11 @@ mp_20:
       structures:
         path: mp_20/SymmCD/DFT/SymmCD-105.csv.gz
         storage_type: old_atomated_csv
+    CHGNet_free:
+      DFT:
+        structures:
+          path: mp_20/SymmCD/CHGNet_free/DFT/SymmCD-1.csv.gz
+          storage_type: old_atomated_csv
   WyckoffTransformer-letters:
     wyckoffs:
       path: mp_20/WyckoffTransformer-letters/sg_letters-uy6zg9y9.json.gz
@@ -464,3 +484,17 @@ mpts_52:
       structures:
         path: mpts_52/SymmCD/CHGNet_fix/SymmCD_mpts_52_id_formula_energy_cif_eform_ehull_refs_mp2023_by_chgnet_fix_symmetry.csv
         storage_type: NongWei_CHGNet_csv
+mp_2022:
+  split:
+    train:
+      structures:
+        path: ../data/matbench_discovery_mp_2022/train.csv.gz
+        storage_type: CDVAE_csv_cif
+    test:
+      structures:
+        path: ../data/matbench_discovery_mp_2022/test.csv.gz
+        storage_type: CDVAE_csv_cif
+    val:
+      structures:
+        path: ../data/matbench_discovery_mp_2022/val.csv.gz
+        storage_type: CDVAE_csv_cif
