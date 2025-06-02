@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+preferred-citation:
+  type: article
+  title: "Wyckoff transformer: Generation of symmetric crystals"
+  authors:
+    - family-names: "Kazeev"
+      given-names: "Nikita"
+    - family-names: "Nong"
+      given-names: "Wei"
+    - family-names: "Romanov"
+      given-names: "Ignat"
+    - family-names: "Zhu"
+      given-names: "Ruiming"
+    - family-names: "Ustyuzhanin"
+      given-names: "Andrey"
+    - family-names: "Yamazaki"
+      given-names: "Shuya"
+    - family-names: "Hippalgaonkar"
+      given-names: "Kedar"
+  journal: "arXiv" # The BibTeX entry lists "arXiv preprint arXiv:2503.02407"
+  # It is common practice to use "arXiv" as the journal for preprints
+  # and specify the arXiv ID in the identifiers section.
+  identifiers:
+    - type: arxiv
+      value: "2503.02407"
+  url: "https://arxiv.org/abs/2503.02407" # Derived from the arXiv ID
+  date-released: 2025-03 # Year from BibTeX, month from arXiv ID (2503.xxxxx)
