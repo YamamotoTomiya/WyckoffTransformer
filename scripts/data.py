@@ -113,7 +113,7 @@ def kick_pyxtal_until_it_works(
 def structure_to_sites(
     structure: Structure,
     wychoffs_enumerated_by_ss: dict,
-    wychoffs_augmentation: dict = None,
+    wychoffs_augmentation: Optional[dict] = None,
     tol: float = 0.1,
     a_tol: float = 5.,
     max_wp: Optional[int] = None) -> dict:
@@ -135,7 +135,7 @@ def structure_to_sites(
         raise ValueError("pyxtal failed to convert the structure to symmetry sites.")
 
     if max_wp is None:
-        # Maybe soring will be a good idea, but we want to preserve backwards compatibility
+        # Maybe sorting will be a good idea, but we want to preserve backwards compatibility
         atom_sites = pyxtal_structure.atom_sites
     else:
         # Maybe we should drop the structures...
