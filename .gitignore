@@ -35,10 +35,8 @@ generated/WyFormer-1-MP GGA static.csv.gz
 generated/WyFormer-DiffCSP++-10k.csv.gz
 generated/WyFormer-GGA-relax-1.csv.gz
 research_notebooks/dft_pass_1_missing.csv.gz
-.gitignore
 research_notebooks/miad_pass_1_missing.csv.gz
 generated.bak
-generated
 generated_public
 generated.tar.gz
 generated_public.tar.gz
