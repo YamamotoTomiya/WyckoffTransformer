@@ -219,6 +219,11 @@ mp_20:
         structures:
           path: mp_20/split/test/CHGNet_fix/mp20_test_CHGNnet_fixed_symmetry
           storage_type: Raymond
+      1k-sample:
+        DiffCSP++:
+          structures:
+            path: mp_20/split/test/1k-sample/DiffCSP++/mp_20_test_1k_sample.diffcsp-pp.json.gz
+            storage_type: PymatgenJson
     val:
       structures:
         path: mp_20/split/val/val.csv
@@ -310,15 +315,15 @@ mp_20:
           path: mp_20/MatterGen/MatterGen_10k/DFT/df_105_raw_dft.csv
           storage_type: CDVAE_csv_cif
         e_hull: mp_20/MatterGen/MatterGen_10k/DFT/df_105_raw_dft_w_chg_e_hull.ehull.csv.gz
-    CHGNet_fix:
-      structures:
-        path: mp_20/MatterGen/CHGNet_fix/MatterGen_10k_CHGNet_fix.csv
-        storage_type: CDVAE_csv_cif
-      e_hull: mp_20/MatterGen/CHGNet_fix/MatterGen_10k_CHGNet_fix_e_hull.ehull.csv.gz
-      DFT: 
-        structures: 
-          path: mp_20/MatterGen/CHGNet_fix/DFT/df_105_chgnet_dft.csv
+      CHGNet_fix:
+        structures:
+          path: mp_20/MatterGen/CHGNet_fix/MatterGen_10k_CHGNet_fix.csv
           storage_type: CDVAE_csv_cif
+        e_hull: mp_20/MatterGen/CHGNet_fix/MatterGen_10k_CHGNet_fix_e_hull.ehull.csv.gz
+        DFT: 
+          structures: 
+            path: mp_20/MatterGen/CHGNet_fix/DFT/df_105_chgnet_dft.csv
+            storage_type: CDVAE_csv_cif
   WyckoffTransformerNew:
     wyckoffs:
       path: mp_20/WyckoffTransformerNew/3ubr94x3.json.gz
