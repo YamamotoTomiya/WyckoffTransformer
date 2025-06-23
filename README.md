@@ -151,7 +151,7 @@ tar -xvf generated.tar.gz
 To push:
 ```bash
 tar --use-compress-program=pigz -cvf generated.tar.gz generated
-rclone sync generated.tar.gz "NUS_Dropbox:/Nikita Kazeev/Wyckoff Transformer data/" --progress
+rclone copy generated.tar.gz "NUS_Dropbox:/Nikita Kazeev/Wyckoff Transformer data/" --progress
 ```
 Tar is used to handle the large number of small files, and `pigz` is used to speed up the compression. The Dropbox folder is private, if you are a collaborator, please contact for access.
 # tar is used to speed up the transfer, as we have a lot of small files
