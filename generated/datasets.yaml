@@ -300,6 +300,29 @@ mp_20:
           path: mp_20/MiAD/CHGNet_free/DFT-GGA-relax-1/MiAD-1-MP GGA relax 1.csv.gz
           storage_type: atomated_csv
           author: "Nikita Kazeev"
+  MatterGen:
+    MatterGen_10k:
+      structures:
+        path: mp_20/MatterGen/MatterGen_10k/MatterGen_10k.csv
+        storage_type: CDVAE_csv_cif
+      DFT:
+        structures:
+          path: mp_20/MatterGen/MatterGen_10k/DFT/df_105_raw_dft.csv
+          storage_type: CDVAE_csv_cif
+        e_hull: mp_20/MatterGen/MatterGen_10k/DFT/df_105_raw_dft_w_chg_e_hull.ehull.csv.gz
+    CHGNet_fix:
+      structures:
+        path: mp_20/MatterGen/CHGNet_fix/MatterGen_10k_CHGNet_fix.csv
+        storage_type: CDVAE_csv_cif
+      e_hull: mp_20/MatterGen/CHGNet_fix/MatterGen_10k_CHGNet_fix_e_hull.ehull.csv.gz
+      DFT: 
+        structures: 
+          path: mp_20/MatterGen/CHGNet_fix/DFT/df_105_chgnet_dft.csv
+          storage_type: CDVAE_csv_cif
+  WyckoffTransformerNew:
+    wyckoffs:
+      path: mp_20/WyckoffTransformerNew/3ubr94x3.json.gz
+      storage_type: pyxtal_json
 mp_20_biternary:
   WyckoffTransformer:
     wyckoffs:
