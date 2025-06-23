@@ -321,20 +321,24 @@ mp_20:
       structures:
         path: mp_20/MatterGen/MatterGen_10k/MatterGen_10k.csv
         storage_type: CDVAE_csv_cif
+        generated_by: "Tomiya Yamamoto"
       DFT:
         structures:
           path: mp_20/MatterGen/MatterGen_10k/DFT/df_105_raw_dft.csv
           storage_type: CDVAE_csv_cif
+          generated_by: "Huang Yuyao"
         e_hull: mp_20/MatterGen/MatterGen_10k/DFT/df_105_raw_dft_w_chg_e_hull.ehull.csv.gz
       CHGNet_fix:
         structures:
           path: mp_20/MatterGen/CHGNet_fix/MatterGen_10k_CHGNet_fix.csv
           storage_type: CDVAE_csv_cif
+          generated_by: "Tomiya Yamamoto"
         e_hull: mp_20/MatterGen/CHGNet_fix/MatterGen_10k_CHGNet_fix_e_hull.ehull.csv.gz
         DFT: 
           structures: 
             path: mp_20/MatterGen/CHGNet_fix/DFT/df_105_chgnet_dft.csv
             storage_type: CDVAE_csv_cif
+            generated_by: "Huang Yuyao"
   WyckoffTransformerNew:
     wyckoffs:
       path: mp_20/WyckoffTransformerNew/3ubr94x3.json.gz
