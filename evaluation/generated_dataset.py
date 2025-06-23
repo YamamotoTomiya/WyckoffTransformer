@@ -66,7 +66,7 @@ DATASET_TO_CDVAE = {
     "perov_5": "perovskite",
     "carbon_24": "carbon"}
 
-DATA_KEYS = frozenset(("structures", "wyckoffs", "e_hull"))
+DATA_KEYS = frozenset(("structures", "wyckoffs", "e_hull", "index_preserved"))
 
 def load_all_from_config(
     datasets: Optional[List[Tuple[str]]] = None,
@@ -497,7 +497,8 @@ class GeneratedDataset():
         dataset: str = "mp_20",
         config_path: Path = Path(__file__).parent.parent / "generated" / "datasets.yaml",
         root_path: Path = Path(__file__).parent.parent / "generated",
-        cache_path: Path = Path(__file__).parent.parent / "cache"):
+        cache_path: Path = Path(__file__).parent.parent / "cache",
+        sort: bool = True):
 
         result = cls(dataset, cache_path.joinpath(dataset, "analysis_datasets", *transformations).with_suffix(".pkl.gz"))
         data_config = OmegaConf.load(config_path)[dataset]
@@ -508,7 +509,8 @@ class GeneratedDataset():
             result.load_structures(
                 root_path / data_config.structures.path,
                 data_config.structures.storage_type,
-                data_config.structures.get("storage_key", None)
+                data_config.structures.get("storage_key", None),
+                sort=sort
                 )
         if "wyckoffs" in data_config:
             result.load_wyckoffs(
@@ -533,7 +535,8 @@ class GeneratedDataset():
         self,
         path: Path|str,
         storage_type: StructureStorage|str,
-        storage_key: Optional[str] = None):
+        storage_key: Optional[str] = None,
+        sort=True):
         # If structures are defined, wyckoffs must be obtained with pyxtal.from_seed(structures)
         # If structures are not defined, wyckoffs can be read externally
         if "wyckoffs" in self.data.columns:
@@ -576,7 +579,8 @@ class GeneratedDataset():
             raise ValueError("Unknown storage type")
         if self.data.index.duplicated().any():
             raise ValueError("Duplicate indices in the dataset")
-        self.data.sort_index(inplace=True)
+        if sort:
+            self.data.sort_index(inplace=True)
         self.data["density"] = self.data["structure"].map(attrgetter("density"))
         self.structures_file = path
         if self.unfiltered_size is None:

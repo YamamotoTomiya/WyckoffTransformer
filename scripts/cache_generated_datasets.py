@@ -27,8 +27,6 @@ def compute_fields_and_cache(data: GeneratedDataset) -> GeneratedDataset:
         data.compute_cdvae_crystals()
         data.compute_naive_validity()
         try:
-            import torch_scatter
-            import torch_sparse
             data.compute_cdvae_e()
         except ImportError as e:
             print("Required libraries are not installed. Skipping cdvae_e computation.")
