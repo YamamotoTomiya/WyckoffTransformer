@@ -220,6 +220,9 @@ mp_20:
           path: mp_20/split/test/CHGNet_fix/mp20_test_CHGNnet_fixed_symmetry
           storage_type: Raymond
       1k-sample:
+        structures:
+          path: mp_20/split/test/1k-sample/mp_20_test_1k_sample.pkl.gz
+          storage_type: Pickle
         DiffCSP++:
           structures:
             path: mp_20/split/test/1k-sample/DiffCSP++/mp_20_test_1k_sample.diffcsp-pp.json.gz

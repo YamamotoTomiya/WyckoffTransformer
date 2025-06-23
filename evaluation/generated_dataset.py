@@ -1,5 +1,6 @@
 from enum import Enum
 from typing import Optional, List, Tuple, Iterable
+from collections.abc import Sequence
 from itertools import repeat
 import warnings
 import gzip
@@ -45,7 +46,8 @@ StructureStorage = Enum("StructureStorage", [
     "NongWei_CHGNet_csv",
     "old_atomated_csv",
     "atomated_csv",
-    "invalid_cifs"
+    "invalid_cifs",
+    "Pickle"
     ])
 
 WyckoffStorage = Enum("WyckoffStorage", [
@@ -274,6 +276,23 @@ def load_invalid_cifs(path: Path):
     data.dropna(inplace=True)
     return data
 
+def to_json(obj) -> str:
+    """
+    Convert an object to a JSON string, parsable by monty.json.MontyDecoder.
+    """
+    encoder = monty.json.MontyEncoder()
+    if isinstance(obj, str):
+        return obj
+    if isinstance(obj, frozenset):
+        obj = tuple(obj)
+    return encoder.encode(obj)
+
+def save_as_json_csv(path: Path, data: pd.DataFrame) -> None:
+    """
+    Save a DataFrame to csv with JSON-encoded columns.
+    """
+    data.map(to_json).to_csv(path, index_label="material_id")
+
 class LetterDictToSitesConverter:
     def __init__(self, 
         wyckoffs_db_file = Path(__file__).parent.parent / "cache" / "wychoffs_enumerated_by_ss.pkl.gz",
@@ -447,6 +466,15 @@ def load_SymmCD_csv(path: Path):
     data["structure"] = data.cif.apply(read_cif)
     return data
 
+def load_pickle(path: Path):
+    if path.suffix == ".pkl":
+        opener = open
+    elif path.suffix == ".gz":
+        opener = gzip.open
+    else:
+        raise ValueError(f"Unknown file type {path.suffix}")
+    with opener(path, "rb") as f:
+        return pickle.load(f)
 
 class GeneratedDataset():
     @classmethod
@@ -465,7 +493,7 @@ class GeneratedDataset():
     @classmethod
     def from_transformations(
         cls,
-        transformations: List[str],
+        transformations: Sequence[str],
         dataset: str = "mp_20",
         config_path: Path = Path(__file__).parent.parent / "generated" / "datasets.yaml",
         root_path: Path = Path(__file__).parent.parent / "generated",
@@ -542,6 +570,8 @@ class GeneratedDataset():
             self.data = load_invalid_cifs(path)
         elif storage_type == StructureStorage.atomated_csv:
             self.data = load_atomated_csv(path)
+        elif storage_type == StructureStorage.Pickle:
+            self.data = load_pickle(path)
         else:
             raise ValueError("Unknown storage type")
         if self.data.index.duplicated().any():
