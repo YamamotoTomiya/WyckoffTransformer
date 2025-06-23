@@ -192,7 +192,6 @@ def read_MP(MP_csv: Path|str, n_jobs: Optional[int] = None):
         pd.DataFrame: The DataFrame with structures.
     """
     MP_df = pd.read_csv(MP_csv, index_col=0)
-    print("Parsing CIFs...")
     with warnings.catch_warnings():
         warnings.filterwarnings(
             "ignore",
