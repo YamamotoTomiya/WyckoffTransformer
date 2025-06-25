@@ -44,7 +44,7 @@ def dive_and_cache(
 
     if DATA_KEYS.intersection(this_config.keys()) and ( # type: ignore
         not last_transformation or last_transformation == transformations[-1]):
-        
+
         print(f"From {dataset_name} loading ({', '.join(transformations)})")
         data = GeneratedDataset.from_transformations(
             transformations, dataset=dataset_name)
@@ -71,10 +71,10 @@ def main():
         compute_fields_and_cache(data)
     else:
         config = OmegaConf.load(args.config_file)
-        for dataset_name, dataset_config in config.items(): # type: ignore
+        for dataset_name, dataset_config in config.items():
             if args.dataset and args.dataset != dataset_name:
                 continue
-            dive_and_cache(dataset_config, [], str(dataset_name), args.config_file, args.last_transformation) # Added str() cast
+            dive_and_cache(dataset_config, [], str(dataset_name), args.config_file, args.last_transformation)
 
 
 if __name__ == "__main__":
