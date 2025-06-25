@@ -177,7 +177,7 @@ class NoveltyFilter():
             reference_dict[self.get_reference_index(record)].append(record)
         self.reference_dict = dict(zip(reference_dict.keys(), map(tuple, reference_dict.values())))
         self.matcher = StructureMatcher()
-        
+     
 
     def get_reference_index(self, record: pd.Series):
         if self.reference_index_type == 'fingerprint':
