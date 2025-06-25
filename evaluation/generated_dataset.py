@@ -47,7 +47,8 @@ StructureStorage = Enum("StructureStorage", [
     "old_atomated_csv",
     "atomated_csv",
     "invalid_cifs",
-    "Pickle"
+    "Pickle",
+    "csv_cif_with_missing_values"
     ])
 
 WyckoffStorage = Enum("WyckoffStorage", [
@@ -561,6 +562,8 @@ class GeneratedDataset():
             self.data = load_Raymond(path)
         elif storage_type == StructureStorage.CDVAE_csv_cif:
             self.data = read_MP(path)
+        elif storage_type == StructureStorage.csv_cif_with_missing_values:
+            self.data = read_MP(path, drop_na=True)
         elif storage_type == StructureStorage.DFT_CSV_CIF:
             self.data = load_csv_cif_dft(path, storage_key)
         elif storage_type == StructureStorage.SymmCD_csv:
