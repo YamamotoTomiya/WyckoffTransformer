@@ -133,22 +133,27 @@ def filter_by_unique_structure(data: pd.DataFrame) -> pd.DataFrame:
     return data.loc[unique_indices]
 
 
-def filter_by_unique_structure_chem_sys_index(data: pd.DataFrame) -> pd.DataFrame:
+def get_reduced_composition(structure):
+    """
+    Returns a frozenset of the reduced composition of the structure.
+    """
+    return frozenset(map(tuple, structure.composition.reduced_composition.as_dict().items()))
+
+def filter_by_unique_structure_reduced_comp_index(data: pd.DataFrame) -> pd.DataFrame:
     present = defaultdict(list)
     unique_indices = []
     for index, structure in data.structure.items():
-        # Strutures consisiting of different sets of elements
-        # can't match in any way
-        chem_system = frozenset(structure.composition)
-        if chem_system not in present:
+        # Strutures with different reduced compositions can't match
+        reduced_composition = get_reduced_composition(structure)
+        if reduced_composition not in present:
             unique_indices.append(index)
         else:
-            for present_structure in present[chem_system]:
+            for present_structure in present[reduced_composition]:
                 if StructureMatcher().fit(structure, present_structure):
                     break
             else:
                 unique_indices.append(index)
-        present[chem_system].append(structure)
+        present[reduced_composition].append(structure)
     return data.loc[unique_indices]
 
 
@@ -156,7 +161,9 @@ class NoveltyFilter():
     """
     Uses fingerprints and StructureMatcher to filter for novel structures.
     """
-    def __init__(self, reference_dataset: pd.DataFrame):
+    def __init__(self,
+                 reference_dataset: pd.DataFrame,
+                 reference_index_type: str = 'fingerprint'):
         """
         Args:
             reference_dataset: The dataset to use as reference for novelty detection
@@ -164,12 +171,27 @@ class NoveltyFilter():
                 'fingerprint' with a hashable fingerprint
                 'structure' with a Structure for fine comparison
         """
+        self.reference_index_type = reference_index_type
         reference_dict = defaultdict(list)
         for _, record in reference_dataset.iterrows():
-            reference_dict[record.fingerprint].append(record)
+            reference_dict[self.get_reference_index(record)].append(record)
         self.reference_dict = dict(zip(reference_dict.keys(), map(tuple, reference_dict.values())))
         self.matcher = StructureMatcher()
- 
+        
+
+    def get_reference_index(self, record: pd.Series):
+        if self.reference_index_type == 'fingerprint':
+            return record.fingerprint
+        elif self.reference_index_type == 'reduced_composition':
+            if 'structure' in record:
+                return get_reduced_composition(record.structure)
+            else:
+                raise NotImplementedError(
+                    "Reduced composition index requires 'structure' column in the record.")
+        else:
+            raise ValueError(f"Unknown reference index type: {self.reference_index_type}")
+        
+
     def is_novel(self, record: pd.Series) -> bool:
         """
         Args:
@@ -179,15 +201,16 @@ class NoveltyFilter():
                 'structure' with a Structure for fine comparison.
                    if not present, only fingerprints will be compared
         """
-        if record.fingerprint in self.reference_dict:
+        reference_index = self.get_reference_index(record)
+        if reference_index in self.reference_dict:
             if 'structure' not in record:
                 return False
-            for reference_record in self.reference_dict[record.fingerprint]:
+            for reference_record in self.reference_dict[reference_index]:
                 if self.matcher.fit(record.structure, reference_record.structure):
                     return False
         return True
 
-       
+
     def get_novel(self, dataset: pd.DataFrame) -> pd.DataFrame:
         """
         Args:
