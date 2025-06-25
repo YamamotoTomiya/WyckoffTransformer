@@ -122,12 +122,18 @@ mp_20:
           storage_type: old_atomated_csv
       CHGNet_free:
         index_preserved: false
+        structures:
+          path: mp_20/DiffCSP/1k-sample/CHGNet_free/CIF-FMT-1000_original-diffcsp-chgnet-prerelax-mp20.csv
+          storage_type: invalid_cifs
         DFT:
           structures:
             path: mp_20/DiffCSP/1k-sample/CHGNet_free/DFT/DiffCSP-CHGNet-1k.csv.gz
             storage_type: old_atomated_csv
       eq-V2_free:
         index_preserved: false
+        structures:
+          path: mp_20/DiffCSP/1k-sample/eq-V2_free/CIF-FMT-1000_original-code-diffcsp-mp20.csv.gz
+          storage_type: invalid_cifs
         DFT:
           structures:
             path: mp_20/DiffCSP/1k-sample/eq-V2_free/DFT/Mirage-14-v2.csv.gz

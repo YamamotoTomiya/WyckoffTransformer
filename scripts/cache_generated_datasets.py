@@ -40,20 +40,28 @@ def dive_and_cache(
     transformations: List[str],
     dataset_name: str,
     config_file: Path,
-    last_transformation: Optional[str] = None) -> None:
+    last_transformation: Optional[str] = None) -> list:
 
-    if DATA_KEYS.intersection(this_config.keys()) and ( # type: ignore
+    failed_transformations = []
+    if DATA_KEYS.intersection(this_config.keys()) and (
         not last_transformation or last_transformation == transformations[-1]):
 
         print(f"From {dataset_name} loading ({', '.join(transformations)})")
-        data = GeneratedDataset.from_transformations(
-            transformations, dataset=dataset_name)
-        compute_fields_and_cache(data)
+        try:
+            data = GeneratedDataset.from_transformations(
+                transformations, dataset=dataset_name)
+            compute_fields_and_cache(data)
+        except Exception as e:
+            print(f"Failed to process dataset {dataset_name} with transformations {transformations}: {e}")
+            failed_transformations.append((dataset_name, transformations, e))
 
     for new_transformation, new_config in this_config.items():
         if new_transformation in DATA_KEYS:
             continue
-        dive_and_cache(new_config, transformations + [new_transformation], dataset_name, config_file, last_transformation)
+        failed_transformations.extend(
+            dive_and_cache(new_config, transformations + [new_transformation], dataset_name, config_file, last_transformation))
+
+    return failed_transformations
 
 def main():
     parser = ArgumentParser()
@@ -71,10 +79,16 @@ def main():
         compute_fields_and_cache(data)
     else:
         config = OmegaConf.load(args.config_file)
+        failed_transformations = []
         for dataset_name, dataset_config in config.items():
             if args.dataset and args.dataset != dataset_name:
                 continue
-            dive_and_cache(dataset_config, [], str(dataset_name), args.config_file, args.last_transformation)
+            failed_transformations.extend(
+                dive_and_cache(dataset_config, [], str(dataset_name), args.config_file, args.last_transformation))
+    if failed_transformations:
+        print("Some transformations failed:")
+        for dataset_name, transformations, error in failed_transformations:
+            print(f"Dataset: {dataset_name}, Transformations: {transformations}, Error: {error}")
 
 
 if __name__ == "__main__":
