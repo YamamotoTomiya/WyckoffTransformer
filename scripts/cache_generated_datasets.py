@@ -85,10 +85,10 @@ def main():
                 continue
             failed_transformations.extend(
                 dive_and_cache(dataset_config, [], str(dataset_name), args.config_file, args.last_transformation))
-    if failed_transformations:
-        print("Some transformations failed:")
-        for dataset_name, transformations, error in failed_transformations:
-            print(f"Dataset: {dataset_name}, Transformations: {transformations}, Error: {error}")
+        if failed_transformations:
+            print("Some transformations failed:")
+            for dataset_name, transformations, error in failed_transformations:
+                print(f"Dataset: {dataset_name}, Transformations: {transformations}, Error: {error}")
 
 
 if __name__ == "__main__":
