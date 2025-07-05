@@ -122,18 +122,12 @@ mp_20:
           storage_type: old_atomated_csv
       CHGNet_free:
         index_preserved: false
-        structures:
-          path: mp_20/DiffCSP/1k-sample/CHGNet_free/CIF-FMT-1000_original-diffcsp-chgnet-prerelax-mp20.csv
-          storage_type: invalid_cifs
         DFT:
           structures:
             path: mp_20/DiffCSP/1k-sample/CHGNet_free/DFT/DiffCSP-CHGNet-1k.csv.gz
             storage_type: old_atomated_csv
       eq-V2_free:
         index_preserved: false
-        structures:
-          path: mp_20/DiffCSP/1k-sample/eq-V2_free/CIF-FMT-1000_original-code-diffcsp-mp20.csv.gz
-          storage_type: invalid_cifs
         DFT:
           structures:
             path: mp_20/DiffCSP/1k-sample/eq-V2_free/DFT/Mirage-14-v2.csv.gz
@@ -334,6 +328,12 @@ mp_20:
           storage_type: CDVAE_csv_cif
           generated_by: "Huang Yuyao"
         e_hull: mp_20/MatterGen/MatterGen_10k/DFT/df_105_raw_dft_w_chg_e_hull.ehull.csv.gz
+      DFT_10k:
+        structures:
+          path : mp_20/MatterGen/MatterGen_10k/DFT_10k/mattergen-10K-dft.csv
+          storage_type: CDVAE_csv_cif
+          generated_by: "Huang Yuyao"
+        e_hull: mp_20/MatterGen/MatterGen_10k/DFT_10k/mattergen-10K-chgnet.ehull.csv.gz
       CHGNet_fix:
         structures:
           path: mp_20/MatterGen/CHGNet_fix/MatterGen_10k_CHGNet_fix.csv
@@ -343,8 +343,12 @@ mp_20:
         DFT: 
           structures: 
             path: mp_20/MatterGen/CHGNet_fix/DFT/df_105_chgnet_dft.csv
-            storage_type: csv_cif_with_missing_values
-            generated_by: "Huang Yuyao"  
+            storage_type: CDVAE_csv_cif
+            generated_by: "Huang Yuyao"
+  WyckoffTransformerNew:
+    wyckoffs:
+      path: mp_20/WyckoffTransformerNew/3ubr94x3.json.gz
+      storage_type: pyxtal_json
 mp_20_biternary:
   WyckoffTransformer:
     wyckoffs:
